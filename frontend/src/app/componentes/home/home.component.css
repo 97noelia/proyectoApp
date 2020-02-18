@@ -1,0 +1,32 @@
+.contenedorHome{
+    height: 100%;
+    display: grid;
+    grid-template-columns: 12fr;
+    grid-template-rows: 1fr 8fr 1fr;
+    grid-template-areas: "titulo1" "imagen" "titulo2";
+}
+
+.titulo1{
+    grid-area: titulo1;
+}
+
+.imagen{
+    grid-area: imagen;
+    background-image: url("../../../assets/imagenes/dino.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+}
+
+.titulo2{
+    grid-area: titulo2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.texto{
+    text-align: center;
+    color: white;
+}

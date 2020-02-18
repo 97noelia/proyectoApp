@@ -1,0 +1,114 @@
+<div class="contenedorRegistro">
+    <div class="titulo1">
+        <h3 class="texto">El Mundo Necesita Una Oportunidad</h3>
+    </div>
+    <div class="imagen">
+        <div class="ventanaRegistro">
+            <p class="tituloRegistrar">Registrarse</p>
+            <form [formGroup]="formRegistro" (submit)="submit()">
+                <div class="fila">
+                    Nombre:
+                    <br>
+                    <input type="text" formControlName="nombre">
+                    <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                        <div *ngIf="nombre.errors.required">
+                            La nombre es obligatorio.
+                        </div>
+                    </div>
+                </div>
+                <div class="fila">
+                    Apellidos:
+                    <br>
+                    <input type="text" formControlName="apellidos">
+                    <div *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)">
+                        <div *ngIf="apellidos.errors.required">
+                            Los apellidos son obligatorios.
+                        </div>
+                    </div>
+                </div>
+                <div class="fila">
+                    DNI:
+                    <br>
+                    <input type="text" formControlName="dni">
+                    <div *ngIf="dni.invalid && (dni.dirty || dni.touched)">
+                        <div *ngIf="dni.errors.required">
+                            El DNI es obligatorio.
+                        </div>
+                    </div>
+                </div>
+                <div class="fila">
+                    Teléfono:
+                    <br>
+                    <input type="text" formControlName="telefono">
+                </div>
+                <div class="fila">
+                    Fecha Nacimiento:
+                    <br>
+                    <input type="date" formControlName="fecha_nacimiento">
+                    <div *ngIf="fecha_nacimiento.invalid && (fecha_nacimiento.dirty || fecha_nacimiento.touched)">
+                        <div *ngIf="fecha_nacimiento.errors.required">
+                            La fecha de nacimiento es obligatoria.
+                        </div>
+                    </div>
+                </div>
+                <div class="fila">
+                    Foto:
+                    <br>
+                    <input type="file" formControlName="foto">
+                </div>
+                <div class="fila">
+                    Email:
+                    <br>
+                    <input type="text" formControlName="email">
+                    <div *ngIf="fecha_nacimiento.invalid && (fecha_nacimiento.dirty || fecha_nacimiento.touched)">
+                        <div *ngIf="email.errors.pattern">
+                            El email no es válido.
+                        </div>
+                    </div>
+                </div>
+                <div class="fila">
+                    Login:
+                    <br>
+                    <input type="text" formControlName="login">
+                    <div *ngIf="login.invalid && (login.dirty || login.touched)">
+                        <div *ngIf="login.errors.required">
+                            El login es obligatorio.
+                        </div>
+                    </div>
+                </div>
+                <div class="fila">
+                    Contraseña:
+                    <br>
+                    <input type="password" formControlName="password">
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)">
+                        <div *ngIf="password.errors.required">
+                            La constraseña es obligatoria.
+                        </div>
+                    </div>
+                </div>
+                <div class="fila">
+                    ¿Tienes carnet?:
+                    <br>
+                    <select formControlName="carnet">
+                        <option [value]="1">Sí</option> 
+                        <option [value]="0" [selected]="1">No</option> 
+                    </select>
+                </div>
+                <div class="fila">
+                    ¿Tienes coche?:
+                    <br>
+                    <select formControlName="coche">
+                        <option [value]="1">Sí</option> 
+                        <option [value]="0" [selected]="1">No</option> 
+                    </select>
+                </div>
+                <div class="fila">
+                    <button type="submit" [disabled]="!formRegistro.valid" class="boton">Registrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="titulo2">
+        <h3 class="texto">¿COMPARTIMOS COCHE?</h3>
+    </div>
+</div>

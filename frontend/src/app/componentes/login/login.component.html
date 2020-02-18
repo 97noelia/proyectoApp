@@ -1,0 +1,39 @@
+<div class="contenedorLogin">
+    <div class="titulo1">
+        <h3 class="texto">El Mundo Necesita Una Oportunidad</h3>
+    </div>
+    <div class="imagen">
+        <div class="ventanaFormulario">
+            <p class="tituloLogin">Iniciar Sesión</p>
+            <form [formGroup]="formLogin" (submit)="submit()">
+                <div class="fila">
+                    Usuario:
+                    <br>
+                    <input type="text" formControlName="login">
+                    <div *ngIf="login.invalid && (login.dirty || login.touched)">
+                        <div *ngIf="login.errors.required">
+                            El usuario es obligatorio.
+                        </div>
+                    </div>
+                </div>
+                <div class="fila">
+                    Contraseña:
+                    <br>
+                    <input type="password" formControlName="password">
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)">
+                        <div *ngIf="password.errors.required">
+                            La contraseña es obligatoria.
+                        </div>
+                    </div>
+                </div>
+                <div class="fila">
+                    <button type="submit" [disabled]="!formLogin.valid" class="boton">Iniciar Sesión</button>
+                </div>
+                <div id="mensaje"></div>
+            </form>
+        </div>
+    </div>
+    <div class="titulo2">
+        <h3 class="texto">¿COMPARTIMOS COCHE?</h3>
+    </div>
+</div>
