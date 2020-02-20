@@ -13,7 +13,6 @@ export class RegistrarComponent implements OnInit {
 
   public formRegistro: FormGroup;
   public miUsuario: UsuarioModelo;
-  private patronEmail: '/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/';
 
 
   constructor(private formBuilder: FormBuilder, private miUsuarioService: UsuarioServicioService, private router: Router) {
@@ -21,13 +20,13 @@ export class RegistrarComponent implements OnInit {
       tipo_usuario_idtipo_usuario: [1],
       nombre: ['', [Validators.required]],
       apellidos: ['', [Validators.required]],
-      dni: ['', [Validators.required]],
-      telefono: [''],
+      dni: ['', [Validators.required, Validators.pattern(/^(\d{8})([A-Z])$/)]],
+      telefono: ['', [Validators.pattern(/^(\+34|0034|34)?[6|7|8|9][0-9]{8}$/)]],
       fecha_nacimiento: ['', [Validators.required]],
       foto: [''],
-      email: ['', Validators.pattern(this.patronEmail)],
+      email: ['', [Validators.pattern(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/)]],
       login: ['', [Validators.required]],
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
       carnet: [''],
       coche: ['']
     });
@@ -70,7 +69,9 @@ export class RegistrarComponent implements OnInit {
     return this.formRegistro.get('fecha_nacimiento');
   }
   get foto() {
-    return this.formRegistro.get('foto');
+    const fotoC = this.formRegistro.get('foto');
+    const reader  = new FileReader();
+    return fotoC;
   }
   get email() {
     return this.formRegistro.get('email');

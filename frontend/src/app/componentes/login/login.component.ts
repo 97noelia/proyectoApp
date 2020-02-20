@@ -30,11 +30,11 @@ export class LoginComponent implements OnInit {
       res => {
         /*console.log(res);*/
         if (res.mensaje) {
-          console.log(document.getElementById("mensaje").innerText = res.mensaje);
+          document.getElementById("mensaje").innerText = res.mensaje;
         }
         else{
           localStorage.setItem('token', res);
-          location.href=('/home');
+          location.href=('home');
         }
       },
       err => {

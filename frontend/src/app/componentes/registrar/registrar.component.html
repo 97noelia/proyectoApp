@@ -34,12 +34,18 @@
                         <div *ngIf="dni.errors.required">
                             El DNI es obligatorio.
                         </div>
+                        <div *ngIf="dni.errors.pattern">
+                            El formato para el campo DNI es incorrecto.
+                        </div>
                     </div>
                 </div>
                 <div class="fila">
                     Teléfono:
                     <br>
                     <input type="text" formControlName="telefono">
+                    <div *ngIf="telefono.invalid && (telefono.dirty || telefono.touched) && telefono.errors.pattern">
+                        El formato para el campo telefono es incorrecto.
+                    </div>
                 </div>
                 <div class="fila">
                     Fecha Nacimiento:
@@ -59,11 +65,9 @@
                 <div class="fila">
                     Email:
                     <br>
-                    <input type="text" formControlName="email">
-                    <div *ngIf="fecha_nacimiento.invalid && (fecha_nacimiento.dirty || fecha_nacimiento.touched)">
-                        <div *ngIf="email.errors.pattern">
+                    <input type="email" formControlName="email">
+                    <div *ngIf="email.errors && (email.dirty || email.touched) && email.errors.pattern">
                             El email no es válido.
-                        </div>
                     </div>
                 </div>
                 <div class="fila">
@@ -83,6 +87,9 @@
                     <div *ngIf="password.invalid && (password.dirty || password.touched)">
                         <div *ngIf="password.errors.required">
                             La constraseña es obligatoria.
+                        </div>
+                        <div *ngIf="password.errors.minlength">
+                            La constraseña debe tener al menos 8 caracteres.
                         </div>
                     </div>
                 </div>

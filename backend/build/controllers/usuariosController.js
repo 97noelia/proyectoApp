@@ -23,10 +23,14 @@ class UsuariosController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const usuario = req.body;
-            const crypto = require('crypto');
-            usuario.password = crypto.createHmac('sha1', usuario.login).update(usuario.password).digest('hex');
-            const respuesta = yield database_1.default.query('insert into usuario set ?', usuario);
-            res.json({ "mensaje": "Usuario insertado correctamente" }); //Poner comprobación de respuesta
+            console.log(usuario.password);
+            //console.log(bcrypt.hashSync(usuario.password));
+            usuario.password = bcrypt.hashSync(usuario.password);
+            console.log(usuario.password);
+            yield database_1.default.query('insert into usuario set ?', usuario);
+            res.json({ "mensaje": "Usuario insertado correctamente" });
+            /*const crypto = require('crypto');
+            usuario.password = crypto.createHmac('sha1', usuario.login).update(usuario.password).digest('hex');*/
         });
     }
     read(req, res) {
@@ -54,17 +58,19 @@ class UsuariosController {
     readLogin(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const usuario = req.body;
-            const crypto = require('crypto');
-            usuario.password = crypto.createHmac('sha1', usuario.login).update(usuario.password).digest('hex');
-            const usuarioLogin = yield database_1.default.query('select * from usuario where login = ? and password = ?', [usuario.login, usuario.password]);
+            const usuarioLogin = yield database_1.default.query('select * from usuario where login = ?', [usuario.login]);
             if (usuarioLogin.length == 0) {
                 res.json({ "mensaje": "Usuario o contraseña incorrectos" });
             }
             else {
-                const expiresIn = 24 * 60 * 60;
-                const accessToken = jwt.sign({ idUsuario: usuario.usuario }, SECRET_KEY, { expiresIn: expiresIn });
-                console.log(accessToken);
-                res.json(accessToken);
+                if (bcrypt.compareSync(usuario.password, usuarioLogin[0].password)) {
+                    const expiresIn = 24 * 60 * 60;
+                    const accessToken = jwt.sign({ idUsuario: usuario.usuario }, SECRET_KEY, { expiresIn: expiresIn });
+                    res.json(accessToken);
+                }
+                else {
+                    res.json({ "mensaje": "Usuario o contraseña incorrectos" });
+                }
             }
         });
     }
