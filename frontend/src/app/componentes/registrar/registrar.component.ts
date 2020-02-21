@@ -30,7 +30,7 @@ export class RegistrarComponent implements OnInit {
       carnet: [''],
       coche: ['']
     });
-   }
+  }
 
   ngOnInit() {
   }
@@ -39,13 +39,22 @@ export class RegistrarComponent implements OnInit {
     /*console.log(this.formLogin.value);*/
     this.miUsuarioService.saveUsuario(this.formRegistro.value).subscribe(
       res => {
-        console.log(res);
-        /*if (res.mensaje) {
-          console.log(document.getElementById("mensaje").innerText = res.mensaje);
+        if (res.mensaje) {
+          document.getElementById('mensaje').innerText = res.mensaje;
         }
-        else{
-          location.href=('/home');
-        }*/
+        else {
+          this.miUsuarioService.readLogin(this.formRegistro.value).subscribe(
+            res => {
+              if (res.mensaje) {
+                document.getElementById('mensaje').innerText = res.mensaje;
+              }
+              else {
+                localStorage.setItem('token', res);
+                location.href = ('mapa');
+              }
+            }
+          );
+        }
       },
       err => {
         console.log(err);
@@ -69,9 +78,7 @@ export class RegistrarComponent implements OnInit {
     return this.formRegistro.get('fecha_nacimiento');
   }
   get foto() {
-    const fotoC = this.formRegistro.get('foto');
-    const reader  = new FileReader();
-    return fotoC;
+    return this.formRegistro.get('foto');
   }
   get email() {
     return this.formRegistro.get('email');

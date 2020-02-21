@@ -15,11 +15,11 @@ export class LoginComponent implements OnInit {
   public miUsuario: UsuarioModelo;
 
   constructor(private formBuilder: FormBuilder, private miUsuarioService: UsuarioServicioService, private router: Router) {
-      this.formLogin = formBuilder.group({
-        login: ['', [Validators.required]],
-        password: ['', [Validators.required]]
-      });
-     }
+    this.formLogin = formBuilder.group({
+      login: ['', [Validators.required]],
+      password: ['', [Validators.required]]
+    });
+  }
 
   ngOnInit() {
   }
@@ -32,9 +32,9 @@ export class LoginComponent implements OnInit {
         if (res.mensaje) {
           document.getElementById("mensaje").innerText = res.mensaje;
         }
-        else{
+        else {
           localStorage.setItem('token', res);
-          location.href=('home');
+          location.href = ('mapa');
         }
       },
       err => {

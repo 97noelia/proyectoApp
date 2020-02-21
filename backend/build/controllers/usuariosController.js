@@ -23,14 +23,15 @@ class UsuariosController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const usuario = req.body;
-            console.log(usuario.password);
-            //console.log(bcrypt.hashSync(usuario.password));
-            usuario.password = bcrypt.hashSync(usuario.password);
-            console.log(usuario.password);
-            yield database_1.default.query('insert into usuario set ?', usuario);
-            res.json({ "mensaje": "Usuario insertado correctamente" });
-            /*const crypto = require('crypto');
-            usuario.password = crypto.createHmac('sha1', usuario.login).update(usuario.password).digest('hex');*/
+            const usuarioEncontrado = yield database_1.default.query('select * from usuario where login = ?', [usuario.login]);
+            if (usuarioEncontrado.length == 0) {
+                usuario.password = bcrypt.hashSync(usuario.password);
+                yield database_1.default.query('insert into usuario set ?', usuario);
+                res.json({ "mensajeC": "Usuario insertado correctamente" });
+            }
+            else {
+                res.json({ "mensaje": "Ya hay un registro con ese usuario, intente con otro" });
+            }
         });
     }
     read(req, res) {

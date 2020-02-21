@@ -12,16 +12,16 @@ class UsuariosController {
 
     public async create(req: Request, res: Response) {
         const usuario = req.body;
-        console.log(usuario.password);
-        //console.log(bcrypt.hashSync(usuario.password));
-        usuario.password = bcrypt.hashSync(usuario.password);
-        console.log(usuario.password);
-        await pool.query('insert into usuario set ?', usuario);
-        res.json({ "mensaje": "Usuario insertado correctamente" });
 
-
-        /*const crypto = require('crypto');
-        usuario.password = crypto.createHmac('sha1', usuario.login).update(usuario.password).digest('hex');*/
+        const usuarioEncontrado = await pool.query('select * from usuario where login = ?', [usuario.login]);
+        if (usuarioEncontrado.length == 0) {
+            usuario.password = bcrypt.hashSync(usuario.password);
+            await pool.query('insert into usuario set ?', usuario);
+            res.json({ "mensajeC": "Usuario insertado correctamente" });
+        }
+        else{
+            res.json({ "mensaje": "Ya hay un registro con ese usuario, intente con otro" });
+        }
 
 
     }
@@ -58,7 +58,7 @@ class UsuariosController {
             else {
                 res.json({ "mensaje": "Usuario o contraseña incorrectos" });
             }
-            
+
         }
 
     }

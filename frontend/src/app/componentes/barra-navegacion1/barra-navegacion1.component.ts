@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ServicioSeguridadService} from 'src/app/Servicios/servicio-seguridad.service';
 
 @Component({
   selector: 'app-barra-navegacion1',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BarraNavegacion1Component implements OnInit {
 
-  constructor() { }
+  constructor(public servicioSeg: ServicioSeguridadService) { }
 
   ngOnInit() {
   }
