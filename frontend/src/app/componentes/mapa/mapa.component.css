@@ -1,0 +1,61 @@
+
+.contenedorMapa {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 2fr 10fr;
+    grid-template-columns: 1fr;
+    grid-template-areas: "formularioDestino" "capaMapa";
+}
+
+.formularioDestino {
+    grid-area: formularioDestino;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    height: 100%;
+}
+
+.capaMapa {
+    grid-area: capaMapa;
+    height: 100%;
+}
+
+.fila{
+    display: flex;
+    align-items: center;
+    padding: 3px;
+    margin: 3px;
+}
+
+.botonB{
+    justify-content: center;
+    display: flex;
+    border: 1px solid #fbd5d5;
+    background: #bc8989;
+}
+
+.boton {
+    background-image: url('../../../assets/imagenes/buscar.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: #bc8989;
+    border: 0px;
+    width: 30px;
+    height: 30px;
+}
+
+.titulo{
+    border-bottom: 1px solid #ffffff;
+}
+
+.map-frame {
+    border: 2px solid black;
+    height: 100%;
+}
+  
+ #map {
+    height: 100%;
+ }
