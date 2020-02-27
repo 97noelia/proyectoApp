@@ -13,7 +13,7 @@ export class RegistrarComponent implements OnInit {
 
   public formRegistro: FormGroup;
   public miUsuario: UsuarioModelo;
-
+  private fotoConvertida: any;
 
   constructor(private formBuilder: FormBuilder, private miUsuarioService: UsuarioServicioService, private router: Router) {
     this.formRegistro = formBuilder.group({
@@ -94,6 +94,10 @@ export class RegistrarComponent implements OnInit {
   }
   get coche() {
     return this.formRegistro.get('coche');
+  }
+
+  private convertirFoto(){
+
   }
 
 }
