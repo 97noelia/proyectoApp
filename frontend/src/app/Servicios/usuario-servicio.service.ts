@@ -18,9 +18,9 @@ export class UsuarioServicioService {
     return this.http.get('http://localhost:3000/usuarios/${id}');
   }
 
-  saveUsuario(usuario: UsuarioModelo): Observable<any> {
+  saveUsuario(usuario: UsuarioModelo, foto: any): Observable<any> {
     console.log(usuario);
-    return this.http.post('http://localhost:3000/usuarios', usuario);
+    return this.http.post('http://localhost:3000/usuarios', {usuario, foto});
   }
 
   deleteUsuario(id: string): Observable<any> {

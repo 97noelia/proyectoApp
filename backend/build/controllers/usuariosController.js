@@ -22,10 +22,13 @@ class UsuariosController {
     }
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const usuario = req.body;
+            console.log(req.body);
+            const usuario = req.body.usuario;
+            console.log(usuario);
             const usuarioEncontrado = yield database_1.default.query('select * from usuario where login = ?', [usuario.login]);
             if (usuarioEncontrado.length == 0) {
                 usuario.password = bcrypt.hashSync(usuario.password);
+                usuario.foto = req.body.foto;
                 yield database_1.default.query('insert into usuario set ?', usuario);
                 res.json({ "mensajeC": "Usuario insertado correctamente" });
             }

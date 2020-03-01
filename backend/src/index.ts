@@ -2,6 +2,8 @@ import express, {Application} from 'express';
 import indexRoutes from './routes/indexRoutes';
 import usuariosRoutes from './routes/usuariosRoutes';
 import tipoUsuarioRoutes from './routes/tipoUsuarioRoutes';
+import busquedasRoutes from './routes/busquedasRoutes';
+import usuarioUbicacionRoutes from './routes/usuarioUbicacionRoutes';
 import morgan from 'morgan';
 import cors from 'cors';
 
@@ -24,6 +26,8 @@ class Server{
         this.app.use(indexRoutes);
         this.app.use('/usuarios', usuariosRoutes);
         this.app.use('/tipoUsuario', tipoUsuarioRoutes);
+        this.app.use('/busquedas', busquedasRoutes);
+        this.app.use('/ubicacion', usuarioUbicacionRoutes);
     }
 
     start(){

@@ -26,7 +26,7 @@ export class RegistrarComponent implements OnInit {
       foto: [''],
       email: ['', [Validators.pattern(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/)]],
       login: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]{8,15}$/)]],
       carnet: [''],
       coche: ['']
     });
@@ -37,7 +37,7 @@ export class RegistrarComponent implements OnInit {
 
   submit() {
     /*console.log(this.formLogin.value);*/
-    this.miUsuarioService.saveUsuario(this.formRegistro.value).subscribe(
+    this.miUsuarioService.saveUsuario(this.formRegistro.value, JSON.stringify(this.fotoConvertida)).subscribe(
       res => {
         if (res.mensaje) {
           document.getElementById('mensaje').innerText = res.mensaje;
@@ -96,8 +96,24 @@ export class RegistrarComponent implements OnInit {
     return this.formRegistro.get('coche');
   }
 
-  private convertirFoto(){
+  private convertirFoto(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+  /*
+      reader.onload = (event: ProgressEvent) => {
+        this.url = (<FileReader>event.target).result;
+      }*/
+      const archivo = event.target.files[0];
+      console.log(archivo);
+      reader.readAsDataURL(archivo);
 
+      reader.onloadend = () => {
+        this.fotoConvertida = reader.result;
+        console.log(this.fotoConvertida);
+      }
+      
+    }
+    
   }
 
 }

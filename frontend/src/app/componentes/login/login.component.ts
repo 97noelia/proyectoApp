@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-    /*console.log(this.formLogin.value);*/
     this.miUsuarioService.readLogin(this.formLogin.value).subscribe(
       res => {
         /*console.log(res);*/
@@ -33,7 +32,7 @@ export class LoginComponent implements OnInit {
           document.getElementById("mensaje").innerText = res.mensaje;
         }
         else {
-          localStorage.setItem('token', res);
+          localStorage.setItem('tokenGrupiCar', res);
           location.href = ('mapa');
         }
       },
@@ -46,8 +45,8 @@ export class LoginComponent implements OnInit {
   get login() {
     return this.formLogin.get('login');
   }
-  get password() {
-    return this.formLogin.get('password');
+  get fecha() {
+    return this.formLogin.get('fecha');
   }
 
 

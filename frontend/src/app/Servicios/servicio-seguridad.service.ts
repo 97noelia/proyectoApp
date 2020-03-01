@@ -10,14 +10,14 @@ export class ServicioSeguridadService {
 
   logIn() {
     /* !! significa devuelveme si es true o false*/
-    return !!localStorage.getItem('token');
+    return !!localStorage.getItem('tokenGrupiCar');
   }
 
   logOut() {
-    localStorage.removeItem('token');
+    localStorage.removeItem('tokenGrupiCar');
   }
 
   getToken() {
-    return localStorage.getItem('token');
+    return localStorage.getItem('tokenGrupiCar');
   }
 }

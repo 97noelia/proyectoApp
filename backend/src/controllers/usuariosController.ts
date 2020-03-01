@@ -11,11 +11,15 @@ class UsuariosController {
     }
 
     public async create(req: Request, res: Response) {
-        const usuario = req.body;
+        console.log(req.body);
+        const usuario = req.body.usuario;
+        
+        console.log(usuario);
 
         const usuarioEncontrado = await pool.query('select * from usuario where login = ?', [usuario.login]);
         if (usuarioEncontrado.length == 0) {
             usuario.password = bcrypt.hashSync(usuario.password);
+            usuario.foto = req.body.foto;
             await pool.query('insert into usuario set ?', usuario);
             res.json({ "mensajeC": "Usuario insertado correctamente" });
         }

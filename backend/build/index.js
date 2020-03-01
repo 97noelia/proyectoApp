@@ -7,6 +7,8 @@ const express_1 = __importDefault(require("express"));
 const indexRoutes_1 = __importDefault(require("./routes/indexRoutes"));
 const usuariosRoutes_1 = __importDefault(require("./routes/usuariosRoutes"));
 const tipoUsuarioRoutes_1 = __importDefault(require("./routes/tipoUsuarioRoutes"));
+const busquedasRoutes_1 = __importDefault(require("./routes/busquedasRoutes"));
+const usuarioUbicacionRoutes_1 = __importDefault(require("./routes/usuarioUbicacionRoutes"));
 const morgan_1 = __importDefault(require("morgan"));
 const cors_1 = __importDefault(require("cors"));
 class Server {
@@ -25,6 +27,8 @@ class Server {
         this.app.use(indexRoutes_1.default);
         this.app.use('/usuarios', usuariosRoutes_1.default);
         this.app.use('/tipoUsuario', tipoUsuarioRoutes_1.default);
+        this.app.use('/busquedas', busquedasRoutes_1.default);
+        this.app.use('/ubicacion', usuarioUbicacionRoutes_1.default);
     }
     start() {
         this.app.listen(this.app.get('port'), () => console.log('El servidor está escuchando en el puerto', this.app.get('port')));

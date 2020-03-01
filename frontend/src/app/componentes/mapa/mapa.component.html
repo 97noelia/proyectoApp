@@ -1,12 +1,12 @@
 <div class="contenedorMapa">
     <div class="formularioDestino">
         Esto es el formulario
-        <!--<h3 class="titulo">Selecciona tu Destino:</h3>
+        <h3 class="titulo">Selecciona tu Destino:</h3>
         <form [formGroup]="formMapa" (submit)="submit()">
             <div class="fila">
                 Destino:
                 &nbsp;&nbsp;
-                <input type="text" formControlName="destino">
+                <input type="text" formControlName="lugar_llegada">
             </div>
             <div class="fila">
                 Fecha del viaje:
@@ -14,15 +14,20 @@
                 <input type="date" formControlName="fecha">
             </div>
             <div class="fila">
+                Horario de salida:
+                &nbsp;&nbsp;
+                <input type="time" formControlName="hora_salida">
+            </div>
+            <div class="fila">
                 Horario de llegada:
                 &nbsp;&nbsp;
-                <input type="time" formControlName="hora">
+                <input type="time" formControlName="hora_llegada">
             </div>
             <div class="fila botonB">
                 <button type="submit" [disabled]="!formMapa.valid" class="boton"></button>
             </div>
             <div id="mensaje"></div>
-        </form>-->
+        </form>
     </div>
     <div class="capaMapa">
             <div class="map-frame">

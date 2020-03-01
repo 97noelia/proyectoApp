@@ -172,7 +172,7 @@ CREATE TABLE `usuario` (
   `apellidos` varchar(45) DEFAULT NULL,
   `telefono` varchar(9) DEFAULT NULL,
   `fecha_nacimiento` date DEFAULT NULL,
-  `foto` varchar(45) DEFAULT NULL,
+  `foto` 	longtext DEFAULT NULL,
   `carnet` tinyint(4) DEFAULT NULL,
   `estado` varchar(45) DEFAULT NULL,
   `coche` tinyint(4) DEFAULT NULL,
@@ -233,7 +233,12 @@ ALTER TABLE `coche`
 -- Indices de la tabla `geolocalizacion`
 --
 ALTER TABLE `geolocalizacion`
-  ADD PRIMARY KEY (`idgeolocalizacion`);
+  ADD PRIMARY KEY (`idgeolocalizacion`),
+  `provincia` varchar(150) DEFAULT NULL,
+  `poblacion` varchar(150) DEFAULT NULL,
+  `cp` varchar(50) DEFAULT NULL,
+  `latitud` float DEFAULT NULL,
+  `longitud` float DEFAULT NULL,
 
 --
 -- Indices de la tabla `mensaje_emisor`
@@ -281,7 +286,8 @@ ALTER TABLE `usuario`
 -- Indices de la tabla `usuario-ubicacion`
 --
 ALTER TABLE `usuario-ubicacion`
-  ADD PRIMARY KEY (`idusuario-ubicacion`),
+  ADD PRIMARY KEY (`idusuario_ubicacion`),
+  'ubicacion' varchar(150),
   ADD KEY `fk_usuario-ubicacion_Usuario1_idx` (`Usuario_idUsuario`),
   ADD KEY `fk_usuario-ubicacion_geolocalizacion1_idx` (`geolocalizacion_idgeolocalizacion`);
 
@@ -293,7 +299,14 @@ ALTER TABLE `usuario-ubicacion`
 -- AUTO_INCREMENT de la tabla `búsquedas`
 --
 ALTER TABLE `búsquedas`
-  MODIFY `idbúsquedas` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idbúsquedas` int(11) NOT NULL AUTO_INCREMENT,
+  'lugar_salida' varchar(100),
+  'lugar_llegada' varchar(100),
+  'hora_salida' time,
+  'hora_llegada' time,
+  'fecha' date,
+  ADD KEY `fk_búsquedas_usuario` (`Usuario_idUsuario`);
+
 
 --
 -- AUTO_INCREMENT de la tabla `carrito-ruta`

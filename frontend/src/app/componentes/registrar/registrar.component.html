@@ -60,7 +60,7 @@
                 <div class="fila">
                     Foto:
                     <br>
-                    <input type="file" formControlName="foto">
+                    <input type="file" formControlName="foto" (change)="convertirFoto($event)">
                 </div>
                 <div class="fila">
                     Email:
@@ -71,7 +71,7 @@
                     </div>
                 </div>
                 <div class="fila">
-                    Login:
+                    Usuario:
                     <br>
                     <input type="text" formControlName="login">
                     <div *ngIf="login.invalid && (login.dirty || login.touched)">
@@ -88,8 +88,8 @@
                         <div *ngIf="password.errors.required">
                             La constraseña es obligatoria.
                         </div>
-                        <div *ngIf="password.errors.minlength">
-                            La constraseña debe tener al menos 8 caracteres.
+                        <div *ngIf="password.errors.pattern">
+                            La constraseña debe tener de 8 a 15 caracteres.
                         </div>
                     </div>
                 </div>
