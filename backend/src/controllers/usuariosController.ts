@@ -44,7 +44,7 @@ class UsuariosController {
     }
 
     public async readOne(req: Request, res: Response) {
-        const usuario = await pool.query('select * from usuario where id = ?', [req.params.id]);
+        const usuario = await pool.query('select * from usuario where usuario = ?', [req.params.usuario]);
         res.json(usuario);
     }
     public async readLogin(req: Request, res: Response) {
@@ -56,7 +56,7 @@ class UsuariosController {
         else {
             if (bcrypt.compareSync(usuario.password, usuarioLogin[0].password)) {
                 const expiresIn = 24 * 60 * 60;
-                const accessToken = jwt.sign({ idUsuario: usuario.usuario }, SECRET_KEY, { expiresIn: expiresIn });
+                const accessToken = jwt.sign({ usuario: usuario.usuario }, SECRET_KEY, { expiresIn: expiresIn });
                 res.json(accessToken);
             }
             else {

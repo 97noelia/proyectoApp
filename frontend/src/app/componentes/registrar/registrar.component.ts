@@ -49,7 +49,7 @@ export class RegistrarComponent implements OnInit {
                 document.getElementById('mensaje').innerText = res.mensaje;
               }
               else {
-                localStorage.setItem('token', res);
+                localStorage.setItem('tokenGrupiCar', res);
                 location.href = ('mapa');
               }
             }

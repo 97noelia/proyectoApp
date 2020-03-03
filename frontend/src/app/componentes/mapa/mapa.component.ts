@@ -16,7 +16,8 @@ export class MapaComponent implements OnInit {
   private map: any;
   public formMapa: FormGroup;
   public miBusqueda: BusquedaModelo;
-  private salida: any;
+  private latitud: any;
+  private longitud: any;
   private token: any;
   constructor(private formBuilder: FormBuilder, private ubicacionService: UsuarioUbicacionServicioService,
               private busquedaService: BusquedaServicioService, private router: Router) {
@@ -36,9 +37,9 @@ export class MapaComponent implements OnInit {
     this.geolocalizar();
   }
 
-  private initMap(latitud: any, longitud: any): void {
+  private initMap(): void {
     this.map = L.map('map', {
-      center: [latitud, longitud],
+      center: [this.latitud, this.longitud],
       zoom: 16
     });
   }
@@ -47,11 +48,10 @@ export class MapaComponent implements OnInit {
     // Comprobamos si hay un objeto geolocation:
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-        const latitud = position.coords.latitude;
-        const longitud = position.coords.longitude;
-        this.salida = latitud + ' ' + longitud;
+        this.latitud = position.coords.latitude;
+        this.longitud = position.coords.longitude;
         this.cogerToken();
-        this.ubicacionService.saveUbicacion(this.salida, this.token).subscribe(
+        this.ubicacionService.saveUbicacion(this.latitud, this.longitud, this.token).subscribe(
           res => {
             console.log(res);
           },
@@ -60,7 +60,7 @@ export class MapaComponent implements OnInit {
           }
         );
         // Inicializo el mapa
-        this.initMap(latitud, longitud);
+        this.initMap();
         // Se pinta
         const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           maxZoom: 19,
@@ -68,7 +68,7 @@ export class MapaComponent implements OnInit {
         });
 
         tiles.addTo(this.map);
-        this.marcaPosicion(latitud, longitud);
+        this.marcaPosicion(this.latitud, this.longitud);
       });
     } else {
       alert('La geolocalización no está disponible');
@@ -95,7 +95,7 @@ export class MapaComponent implements OnInit {
     this.token = localStorage.getItem('tokenGrupiCar');
   }
   submit() {
-    this.busquedaService.saveBusqueda(this.formMapa.value, this.token, this.salida).subscribe(
+    this.busquedaService.saveBusqueda(this.formMapa.value, this.token, this.latitud + this.longitud).subscribe(
       res => {
         console.log(res);
       },

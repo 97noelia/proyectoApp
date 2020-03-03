@@ -14,8 +14,8 @@ export class UsuarioServicioService {
     return this.http.get('http://localhost:3000/usuarios');
   }
 
-  getUsuario(id: string): Observable<any> {
-    return this.http.get('http://localhost:3000/usuarios/${id}');
+  getUsuario(usuario: string): Observable<any> {
+    return this.http.get('http://localhost:3000/usuarios/${usuario}');
   }
 
   saveUsuario(usuario: UsuarioModelo, foto: any): Observable<any> {

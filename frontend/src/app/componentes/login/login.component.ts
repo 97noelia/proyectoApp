@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
       res => {
         /*console.log(res);*/
         if (res.mensaje) {
-          document.getElementById("mensaje").innerText = res.mensaje;
+          document.getElementById('mensaje').innerText = res.mensaje;
         }
         else {
           localStorage.setItem('tokenGrupiCar', res);
@@ -45,8 +45,8 @@ export class LoginComponent implements OnInit {
   get login() {
     return this.formLogin.get('login');
   }
-  get fecha() {
-    return this.formLogin.get('fecha');
+  get password() {
+    return this.formLogin.get('password');
   }
 
 

@@ -13,6 +13,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = __importDefault(require("../database"));
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const SECRET_KEY = 'MiClaveSecreta1234';
 class UsuarioUbicacionController {
     index(req, res) {
         res.json({ 'message': 'Estás en usuarioUbicacion' });
@@ -20,6 +23,14 @@ class UsuarioUbicacionController {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.body);
+            const token = req.body.token;
+            try {
+                const decoded = jwt.decode(token, SECRET_KEY);
+                console.log("decoded " + Object.values(decoded));
+            }
+            catch (err) {
+                console.log(err);
+            }
             return;
             const respuesta = yield database_1.default.query('insert into usuario-ubicacion set ?', [req.body]);
             res.json(respuesta);
