@@ -63,3 +63,9 @@
     margin:0;
     border-bottom: 1px solid #8a8a8ab8;
 }
+
+.botonGoogle {
+    background-color: #040490;
+    color: white;
+    border: 1px solid #0404a0;
+}

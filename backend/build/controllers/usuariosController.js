@@ -31,7 +31,7 @@ class UsuariosController {
             if (req.files != null) {
                 const foto = req.files.foto;
                 const fecha = Math.random() * Date.now();
-                const ruta = 'assets/' + fecha + foto.name;
+                const ruta = 'assets/imagenes/' + fecha + foto.name;
                 usuario.foto = ruta;
                 fs.writeFile('../frontend/src/' + ruta, foto.data, function (err) {
                     if (err) {

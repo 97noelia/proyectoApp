@@ -6,7 +6,6 @@ import tipoUsuarioRoutes from './routes/tipoUsuarioRoutes';
 import busquedasRoutes from './routes/busquedasRoutes';
 import usuarioUbicacionRoutes from './routes/usuarioUbicacionRoutes';
 import geolocalizacionRoutes from './routes/geolocalizacionRoutes';
-import imagenesRoutes from './routes/imagenesRoutes';
 import morgan from 'morgan';
 import cors from 'cors';
 
@@ -34,7 +33,6 @@ class Server{
         this.app.use('/ubicacion', usuarioUbicacionRoutes);
         this.app.use('/geolocalizacion', geolocalizacionRoutes);
         this.app.use('/geolocalizacion', geolocalizacionRoutes);
-        this.app.use('/imagenes', imagenesRoutes);
     }
 
     start(){
