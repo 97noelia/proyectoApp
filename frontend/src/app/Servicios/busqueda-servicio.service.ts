@@ -12,7 +12,7 @@ export class BusquedaServicioService {
 
   saveBusqueda(busqueda: BusquedaModelo, token: any, lugarSalida: any): Observable<any> {
     console.log(busqueda);
-    return this.http.post('http://localhost:3000/busquedas', {busqueda, token, lugarSalida});
+    return this.http.post('http://localhost:3000/geolocalizacion', {busqueda, token, lugarSalida});
   }
 
 

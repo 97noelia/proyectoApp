@@ -14,13 +14,13 @@ export class UsuarioServicioService {
     return this.http.get('http://localhost:3000/usuarios');
   }
 
-  getUsuario(usuario: string): Observable<any> {
-    return this.http.get('http://localhost:3000/usuarios/${usuario}');
+  getUsuario(usuario: any): Observable<any> {
+    return this.http.get('http://localhost:3000/usuarios/' + usuario);
   }
 
-  saveUsuario(usuario: UsuarioModelo, foto: any): Observable<any> {
+  saveUsuario(usuario: any): Observable<any> {
     console.log(usuario);
-    return this.http.post('http://localhost:3000/usuarios', {usuario, foto});
+    return this.http.post('http://localhost:3000/usuarios', usuario);
   }
 
   deleteUsuario(id: string): Observable<any> {
@@ -29,8 +29,12 @@ export class UsuarioServicioService {
   updateUsuario(id: string, usuario: UsuarioModelo): Observable<any> {
     return this.http.put('http://localhost:3000/usuarios/${id}', usuario);
   }
-  readLogin(usuario: UsuarioModelo): Observable <any>{
+  readLogin(usuario: UsuarioModelo): Observable <any> {
     return this.http.post('http://localhost:3000/usuarios/login', usuario);
+  }
+
+  readLoginGmail(id: any): Observable <any> {
+    return this.http.post('http://localhost:3000/usuarios/loginGmail', id);
   }
 
 

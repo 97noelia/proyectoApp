@@ -1,9 +1,12 @@
 import express, {Application} from 'express';
+const fileUpload = require('express-fileupload');
 import indexRoutes from './routes/indexRoutes';
 import usuariosRoutes from './routes/usuariosRoutes';
 import tipoUsuarioRoutes from './routes/tipoUsuarioRoutes';
 import busquedasRoutes from './routes/busquedasRoutes';
 import usuarioUbicacionRoutes from './routes/usuarioUbicacionRoutes';
+import geolocalizacionRoutes from './routes/geolocalizacionRoutes';
+import imagenesRoutes from './routes/imagenesRoutes';
 import morgan from 'morgan';
 import cors from 'cors';
 
@@ -11,6 +14,7 @@ class Server{
     public app: Application;
     constructor(){
         this.app = express();
+        this.app.use(fileUpload());
         this.config();
         this.routes();
     }
@@ -28,6 +32,9 @@ class Server{
         this.app.use('/tipoUsuario', tipoUsuarioRoutes);
         this.app.use('/busquedas', busquedasRoutes);
         this.app.use('/ubicacion', usuarioUbicacionRoutes);
+        this.app.use('/geolocalizacion', geolocalizacionRoutes);
+        this.app.use('/geolocalizacion', geolocalizacionRoutes);
+        this.app.use('/imagenes', imagenesRoutes);
     }
 
     start(){

@@ -9,9 +9,9 @@ import { UsuarioUbicacionModelo } from '../modelos/usuarioUbicacion';
 export class UsuarioUbicacionServicioService {
 
   constructor(private http: HttpClient) { }
-  saveUbicacion(latitud: any, longitud:any, token: any): Observable<any> {
+  saveUbicacion(latitud: any, longitud: any, usuarioid: any, geolocalizacionid: any): Observable<any> {
     console.log(latitud);
     console.log(longitud);
-    return this.http.post('http://localhost:3000/ubicacion', {latitud, longitud, token});
+    return this.http.post('http://localhost:3000/ubicacion', {latitud, longitud, usuarioid, geolocalizacionid});
   }
 }

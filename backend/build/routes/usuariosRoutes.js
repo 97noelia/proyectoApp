@@ -14,6 +14,7 @@ class UsuariosRoutes {
         this.router.delete('/:id', usuariosController_1.usuariosController.delete);
         this.router.get('/:usuario', usuariosController_1.usuariosController.readOne);
         this.router.post('/login', usuariosController_1.usuariosController.readLogin);
+        this.router.post('/loginGmail', usuariosController_1.usuariosController.sesionGoogle);
     }
 }
 const usuariosRoutes = new UsuariosRoutes();

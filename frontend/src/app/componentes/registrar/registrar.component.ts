@@ -3,6 +3,10 @@ import { UsuarioServicioService } from 'src/app/Servicios/usuario-servicio.servi
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuarioModelo } from 'src/app/modelos/usuario';
 import { Router } from '@angular/router';
+import { ThrowStmt } from '@angular/compiler';
+import { ServicioimagenesService } from 'src/app/Servicios/servicioimagenes.service';
+import { EventEmitter } from 'protractor';
+import { ImageUploaderOptions, FileQueueObject } from 'ngx-image-uploader';
 
 @Component({
   selector: 'app-registrar',
@@ -13,9 +17,11 @@ export class RegistrarComponent implements OnInit {
 
   public formRegistro: FormGroup;
   public miUsuario: UsuarioModelo;
-  private fotoConvertida: any;
+  private fotoCogida: any;
 
-  constructor(private formBuilder: FormBuilder, private miUsuarioService: UsuarioServicioService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private miUsuarioService: UsuarioServicioService,
+    private router: Router, private servicioImagen: ServicioimagenesService) {
+    //this.fotoCogida = new FormData();
     this.formRegistro = formBuilder.group({
       tipo_usuario_idtipo_usuario: [1],
       nombre: ['', [Validators.required]],
@@ -24,7 +30,7 @@ export class RegistrarComponent implements OnInit {
       telefono: ['', [Validators.pattern(/^(\+34|0034|34)?[6|7|8|9][0-9]{8}$/)]],
       fecha_nacimiento: ['', [Validators.required]],
       foto: [''],
-      email: ['', [Validators.pattern(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/)]],
+      email: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/)]],
       login: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9]{8,15}$/)]],
       carnet: [''],
@@ -36,9 +42,24 @@ export class RegistrarComponent implements OnInit {
   }
 
   submit() {
-    /*console.log(this.formLogin.value);*/
-    this.miUsuarioService.saveUsuario(this.formRegistro.value, JSON.stringify(this.fotoConvertida)).subscribe(
+    const formData = new FormData();
+    formData.append('nombre', this.formRegistro.get('nombre').value);
+    formData.append('apellidos', this.formRegistro.get('apellidos').value);
+    formData.append('tipo_usuario_idtipo_usuario', this.formRegistro.get('tipo_usuario_idtipo_usuario').value);
+    formData.append('dni', this.formRegistro.get('dni').value);
+    formData.append('telefono', this.formRegistro.get('telefono').value);
+    formData.append('fecha_nacimiento', this.formRegistro.get('fecha_nacimiento').value);
+    formData.append('foto', this.fotoCogida);
+    formData.append('email', this.formRegistro.get('email').value);
+    formData.append('login', this.formRegistro.get('login').value);
+    formData.append('password', this.formRegistro.get('password').value);
+    formData.append('carnet', this.formRegistro.get('carnet').value);
+    formData.append('coche', this.formRegistro.get('coche').value);
+
+
+    this.miUsuarioService.saveUsuario(formData).subscribe(
       res => {
+        console.log(res);
         if (res.mensaje) {
           document.getElementById('mensaje').innerText = res.mensaje;
         }
@@ -57,6 +78,8 @@ export class RegistrarComponent implements OnInit {
         }
       },
       err => {
+        console.log(err);
+        return;
         console.log(err);
       }
     );
@@ -97,23 +120,10 @@ export class RegistrarComponent implements OnInit {
   }
 
   private convertirFoto(event: any) {
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-  /*
-      reader.onload = (event: ProgressEvent) => {
-        this.url = (<FileReader>event.target).result;
-      }*/
-      const archivo = event.target.files[0];
-      console.log(archivo);
-      reader.readAsDataURL(archivo);
-
-      reader.onloadend = () => {
-        this.fotoConvertida = reader.result;
-        console.log(this.fotoConvertida);
-      }
-      
+    if (event.target.files.length > 0) {
+      this.fotoCogida = event.target.files[0];
+      console.log(this.fotoCogida);
     }
-    
   }
 
 }

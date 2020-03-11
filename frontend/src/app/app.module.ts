@@ -14,6 +14,21 @@ import { ViajesComponent } from './componentes/viajes/viajes.component';
 import { MensajesComponent } from './componentes/mensajes/mensajes.component';
 import { MiPerfilComponent } from './componentes/mi-perfil/mi-perfil.component';
 
+import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
+
+import { ImageUploaderModule } from 'ngx-image-uploader';
+
+const config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider('460465257796-sac5amom75dp9dn2qgl601ri3lqmmede.apps.googleusercontent.com')
+  }
+]);
+
+export function provideConfig() {
+  return config;
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,9 +45,16 @@ import { MiPerfilComponent } from './componentes/mi-perfil/mi-perfil.component';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SocialLoginModule,
+    ImageUploaderModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
