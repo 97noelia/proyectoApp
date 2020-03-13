@@ -59,16 +59,15 @@ export class MapaComponent implements OnInit {
         console.log(this.cogerToken());
         const usuario = this.cogerToken();
         console.log("llego2");
-        /*this.servicioGeolocalizacion.getBusquedaGeo(this.latitud, this.longitud).subscribe(
+        this.servicioGeolocalizacion.getBusquedaGeo(this.latitud, this.longitud).subscribe(
           res => {
             console.log(res);
             return res;
           },
           err => {
             console.log(err);
-            
           }
-        );*/
+        );
         //console.log(geolocalización);
         this.ubicacionService.saveUbicacion(this.latitud, this.longitud, this.cogerToken(), 'geolocalizacion').subscribe(
           res => {

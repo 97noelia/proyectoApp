@@ -17,8 +17,8 @@ class GeolocalizacionController {
     readOne(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log("estoy en geolocalizacion");
-            /*const latitud = Number((req.body.latitud).toFixed(2));
-            const longitud = Number((req.body.longitud).toFixed(2));*/
+            const latitud = req.body.latitud;
+            const longitud = req.body.longitud;
             console.log(req.body.latitud);
             console.log(req.body.longitud);
             const geolocalizacion = yield database_1.default.query('select * from geolocalizacion where latitud = ? and longitud = ?', [req.body.latitud, req.body.longitud]);

@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { AuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
+import { AuthService } from 'angularx-social-login';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServicioSeguridadService {
-
   constructor(private http: HttpClient, private authService: AuthService) { }
 
   logIn() {
@@ -16,7 +15,6 @@ export class ServicioSeguridadService {
 
   logOut() {
     localStorage.removeItem('tokenGrupiCar');
-    this.authService.signOut();
   }
 
   getToken() {

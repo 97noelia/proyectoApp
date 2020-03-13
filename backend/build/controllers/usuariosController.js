@@ -18,9 +18,7 @@ const jwtD = require('jwt-simple');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const SECRET_KEY = 'MiClaveSecreta1234';
-var request = require("request");
 const fs = require('fs');
-var bodyParser = require('body-parser');
 class UsuariosController {
     index(req, res) {
         res.json({ 'message': 'Estás en usuarios' });

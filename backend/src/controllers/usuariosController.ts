@@ -1,19 +1,13 @@
 import { Request, Response } from 'express';
 import pool from '../database';
 import conexion from '../conexion';
-import { Observable } from 'rxjs';
-import FormData from "formdata-node";
 const fileUpload = require('express-fileupload');
-
 const jwtD = require('jwt-simple');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const SECRET_KEY = 'MiClaveSecreta1234';
-
-var request = require("request");
 const fs = require('fs');
-var bodyParser = require('body-parser');
-
+var FormData = require('form-data');
 
 class UsuariosController {
     index(req: Request, res: Response) {

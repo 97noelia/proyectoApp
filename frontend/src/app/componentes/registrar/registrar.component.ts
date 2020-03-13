@@ -3,9 +3,9 @@ import { UsuarioServicioService } from 'src/app/Servicios/usuario-servicio.servi
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuarioModelo } from 'src/app/modelos/usuario';
 import { Router } from '@angular/router';
-import { ThrowStmt } from '@angular/compiler';
+/*import { ThrowStmt } from '@angular/compiler';
 import { EventEmitter } from 'protractor';
-import { ImageUploaderOptions, FileQueueObject } from 'ngx-image-uploader';
+import { ImageUploaderOptions, FileQueueObject } from 'ngx-image-uploader';*/
 
 @Component({
   selector: 'app-registrar',
@@ -19,8 +19,7 @@ export class RegistrarComponent implements OnInit {
   private fotoCogida: any;
 
   constructor(private formBuilder: FormBuilder, private miUsuarioService: UsuarioServicioService,
-    private router: Router) {
-    //this.fotoCogida = new FormData();
+              private router: Router) {
     this.formRegistro = formBuilder.group({
       tipo_usuario_idtipo_usuario: [1],
       nombre: ['', [Validators.required]],
