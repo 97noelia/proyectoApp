@@ -55,7 +55,7 @@ class UsuariosController {
                 res.json({ id });
             }
             else {
-                res.json({ "mensaje": "Ya hay un registro con ese usuario, intente con otro" });
+                res.json({ "mensaje": "Ya hay un registro con ese email, intente con otro" });
             }
         }
 
