@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-01-2020 a las 20:28:20
+-- Tiempo de generación: 13-03-2020 a las 20:57:35
 -- Versión del servidor: 10.1.35-MariaDB
 -- Versión de PHP: 7.2.9
 
@@ -45,6 +45,7 @@ CREATE TABLE `búsquedas` (
   `lugar_llegada` varchar(100) DEFAULT NULL,
   `hora_salida` time DEFAULT NULL,
   `hora_llegada` time DEFAULT NULL,
+  `fecha` date NOT NULL,
   `Usuario_idUsuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -86,8 +87,20 @@ CREATE TABLE `coche` (
 --
 
 CREATE TABLE `geolocalizacion` (
-  `idgeolocalizacion` int(11) NOT NULL
+  `idgeolocalizacion` int(11) NOT NULL,
+  `provincia` varchar(150) NOT NULL,
+  `poblacion` varchar(150) NOT NULL,
+  `cp` varchar(50) NOT NULL,
+  `longitud` decimal(10,6) NOT NULL,
+  `latitud` decimal(10,6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `geolocalizacion`
+--
+
+INSERT INTO `geolocalizacion` (`idgeolocalizacion`, `provincia`, `poblacion`, `cp`, `longitud`, `latitud`) VALUES
+(1, 'Ciudad Real', 'Alcázar de San Juan', '13600', '-3.221094', '39.390413');
 
 -- --------------------------------------------------------
 
@@ -159,6 +172,14 @@ CREATE TABLE `tipo_usuario` (
   `tipo` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Volcado de datos para la tabla `tipo_usuario`
+--
+
+INSERT INTO `tipo_usuario` (`idtipo_usuario`, `tipo`) VALUES
+(1, 'usuario'),
+(2, 'administrador');
+
 -- --------------------------------------------------------
 
 --
@@ -172,15 +193,21 @@ CREATE TABLE `usuario` (
   `apellidos` varchar(45) DEFAULT NULL,
   `telefono` varchar(9) DEFAULT NULL,
   `fecha_nacimiento` date DEFAULT NULL,
-  `foto` 	longtext DEFAULT NULL,
-  `carnet` tinyint(4) DEFAULT NULL,
-  `estado` varchar(45) DEFAULT NULL,
-  `coche` tinyint(4) DEFAULT NULL,
+  `foto` longtext,
+  `carnet` tinyint(4) DEFAULT '0',
+  `coche` tinyint(4) DEFAULT '0',
   `login` varchar(45) DEFAULT NULL,
-  `password` varchar(45) DEFAULT NULL,
+  `password` varchar(150) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
   `tipo_usuario_idtipo_usuario` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`idUsuario`, `dni`, `nombre`, `apellidos`, `telefono`, `fecha_nacimiento`, `foto`, `carnet`, `coche`, `login`, `password`, `email`, `tipo_usuario_idtipo_usuario`) VALUES
+(113, '65432198A', 'ana', 'fernandez', '654321987', '1965-02-01', 'assets/imagenes/6449593224.7805395personas.jpg', 0, 0, 'anaF', '$2a$10$tbys9.x2lvglOFrXjgL7zOMseF1G61nkBDwoeDoyETws3QAgb4jUG', 'ana@g.es', 1);
 
 -- --------------------------------------------------------
 
@@ -189,10 +216,11 @@ CREATE TABLE `usuario` (
 --
 
 CREATE TABLE `usuario-ubicacion` (
-  `idusuario-ubicacion` int(11) NOT NULL,
-  `ubicacion` varchar(45) DEFAULT NULL,
+  `idusuario_ubicacion` int(11) NOT NULL,
+  `latitud` float NOT NULL,
   `Usuario_idUsuario` int(11) NOT NULL,
-  `geolocalizacion_idgeolocalizacion` int(11) NOT NULL
+  `geolocalizacion_idgeolocalizacion` int(11) NOT NULL,
+  `longitud` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -233,12 +261,7 @@ ALTER TABLE `coche`
 -- Indices de la tabla `geolocalizacion`
 --
 ALTER TABLE `geolocalizacion`
-  ADD PRIMARY KEY (`idgeolocalizacion`),
-  `provincia` varchar(150) DEFAULT NULL,
-  `poblacion` varchar(150) DEFAULT NULL,
-  `cp` varchar(50) DEFAULT NULL,
-  `latitud` float DEFAULT NULL,
-  `longitud` float DEFAULT NULL,
+  ADD PRIMARY KEY (`idgeolocalizacion`);
 
 --
 -- Indices de la tabla `mensaje_emisor`
@@ -287,7 +310,6 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `usuario-ubicacion`
   ADD PRIMARY KEY (`idusuario_ubicacion`),
-  'ubicacion' varchar(150),
   ADD KEY `fk_usuario-ubicacion_Usuario1_idx` (`Usuario_idUsuario`),
   ADD KEY `fk_usuario-ubicacion_geolocalizacion1_idx` (`geolocalizacion_idgeolocalizacion`);
 
@@ -299,14 +321,7 @@ ALTER TABLE `usuario-ubicacion`
 -- AUTO_INCREMENT de la tabla `búsquedas`
 --
 ALTER TABLE `búsquedas`
-  MODIFY `idbúsquedas` int(11) NOT NULL AUTO_INCREMENT,
-  'lugar_salida' varchar(100),
-  'lugar_llegada' varchar(100),
-  'hora_salida' time,
-  'hora_llegada' time,
-  'fecha' date,
-  ADD KEY `fk_búsquedas_usuario` (`Usuario_idUsuario`);
-
+  MODIFY `idbúsquedas` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `carrito-ruta`
@@ -324,7 +339,7 @@ ALTER TABLE `coche`
 -- AUTO_INCREMENT de la tabla `geolocalizacion`
 --
 ALTER TABLE `geolocalizacion`
-  MODIFY `idgeolocalizacion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idgeolocalizacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `mensaje_emisor`
@@ -354,19 +369,19 @@ ALTER TABLE `tipo_mensaje`
 -- AUTO_INCREMENT de la tabla `tipo_usuario`
 --
 ALTER TABLE `tipo_usuario`
-  MODIFY `idtipo_usuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idtipo_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario-ubicacion`
 --
 ALTER TABLE `usuario-ubicacion`
-  MODIFY `idusuario-ubicacion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idusuario_ubicacion` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
@@ -429,7 +444,7 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `usuario-ubicacion`
   ADD CONSTRAINT `fk_usuario-ubicacion_Usuario1` FOREIGN KEY (`Usuario_idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_usuario-ubicacion_geolocalizacion1` FOREIGN KEY (`geolocalizacion_idgeolocalizacion`) REFERENCES `geolocalizacion` (`idgeolocalizacion`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_usuario-ubicacion_geolocalizacion1` FOREIGN KEY (`geolocalizacion_idgeolocalizacion`) REFERENCES `geolocalizacion` (`idgeolocalizacion`) ON DELETE CASCADE ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
